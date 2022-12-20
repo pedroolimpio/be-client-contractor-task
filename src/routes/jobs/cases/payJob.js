@@ -1,6 +1,3 @@
-// 1. ***POST*** `/jobs/:job_id/pay` - Pay for a job, a client can only pay if his balance >= the amount to pay.
-// The amount should be moved from the client's balance to the contractor balance.
-
 const { QueryTypes } = require('sequelize');
 const BadRequestException = require('../../../errors/BadRequest.exception');
 const NotFoundException = require('../../../errors/NotFound.exception');

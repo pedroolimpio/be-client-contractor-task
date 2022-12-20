@@ -1,6 +1,3 @@
-// ***POST*** `/balances/deposit/:userId` - Deposits money into the the the balance of a client,
-// a client can't deposit more than 25% his total of jobs to pay. (at the deposit moment)
-
 const { QueryTypes } = require('sequelize');
 const BadRequestException = require('../../../errors/BadRequest.exception');
 const { Profile } = require('../../../model');

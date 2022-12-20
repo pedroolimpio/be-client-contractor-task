@@ -1,5 +1,3 @@
-// 1. ***GET*** `/jobs/unpaid` -  Get all unpaid jobs for a user (***either*** a client or contractor), for ***active contracts only***.
-
 const { QueryTypes } = require('sequelize');
 const { contractStatus } = require('../../../utils/utils');
 

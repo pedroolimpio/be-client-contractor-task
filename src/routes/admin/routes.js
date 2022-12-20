@@ -6,8 +6,14 @@ const { bestProfession } = require('./cases/bestProfession');
 const router = express.Router();
 
 router.get('/best-profession', getProfile, async (req, res) => res.json(await bestProfession(req)));
-router.get('/best-clients', getProfile, async (req, res) => res.json(await bestClients(req)));
+router.get('/best-clients', getProfile, async (req, res) => {
+  const filterOptions = {
+    limit: +req.query.limit || 2,
+    start: req.query.start,
+    end: req.query.end,
+  };
 
-// best-profession?start=<date>&end=<date>`
+  return res.json(await bestClients(req, filterOptions));
+});
 
 module.exports = router;

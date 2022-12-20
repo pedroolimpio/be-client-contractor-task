@@ -1,6 +1,3 @@
-// ***GET*** `/admin/best-profession?start=<date>&end=<date>` - Returns the profession that earned the
-// most money (sum of jobs paid) for any contactor that worked in the query time range.
-
 const { QueryTypes } = require('sequelize');
 const InternalServerErrorException = require('../../../errors/InternalServerError.exception');
 
