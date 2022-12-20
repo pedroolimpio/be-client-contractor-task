@@ -3,13 +3,16 @@
 const { Op } = require('sequelize');
 
 module.exports.getUnpaid = async req => {
-  const { Contract } = req.app.get('models');
+  const { Contract, Job } = req.app.get('models');
   const { profile } = req;
 
   const unpaidContracts = await Contract.findAll({
     where: {
       status: 'in_progress',
       [Op.or]: [{ ClientId: profile.id }, { ContractorId: profile.id }],
+    },
+    include: {
+      model: Job,
     },
   });
 
