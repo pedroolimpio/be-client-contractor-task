@@ -1,20 +1,24 @@
 // 1. ***GET*** `/jobs/unpaid` -  Get all unpaid jobs for a user (***either*** a client or contractor), for ***active contracts only***.
 
-const { Op } = require('sequelize');
+const { QueryTypes } = require('sequelize');
+const { contractStatus } = require('../../../utils/utils');
 
 module.exports.getUnpaid = async req => {
-  const { Contract, Job } = req.app.get('models');
+  const sequelize = req.app.get('sequelize');
+
   const { profile } = req;
 
-  const unpaidContracts = await Contract.findAll({
-    where: {
-      status: 'in_progress',
-      [Op.or]: [{ ClientId: profile.id }, { ContractorId: profile.id }],
-    },
-    include: {
-      model: Job,
-    },
-  });
+  const jobs = await sequelize.query(
+    `
+    select j.* from Jobs j
+    inner join Contracts c ON
+    c.id = j.contractid
+    where j.paid is null
+    and (c.clientid = ${profile.id} or c.contractorid = ${profile.id})
+    and c.status = '${contractStatus.inProgress}'
+  `,
+    { type: QueryTypes.SELECT }
+  );
 
-  return unpaidContracts;
+  return jobs;
 };
