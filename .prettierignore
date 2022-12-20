@@ -1,0 +1,10 @@
+/build
+/scripts
+/login-demo
+/lambdas
+/node_modules
+/public
+*.min.js
+/docs
+/client
+/.vscode
